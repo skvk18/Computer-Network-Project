@@ -4,30 +4,30 @@
 
 int main()
 {
-	int val,fd[2],n,pr;
-	char arr1[100],arr2[100];
+	int val, fd[2], n, pr;
+	char arr1[100], arr2[100];
 	pipe(fd);
-	val = open("abc.txt",O_RDONLY,0666);
-	n = read(val,arr1,100);
+	val = open("abc.txt", O_RDONLY, 0666);
+	n = read(val, arr1, 100);
 	pr = fork();
 
-	if( pr < 0)
-		printf("\nError in fork , pr = %d",pr);
-	else if(pr == 0)
+	if (pr < 0)
+		printf("\nError in fork, pr = %d", pr);
+	else if (pr == 0)
 	{
-		printf("\nFor child process ,Value of pr is : %d",pr);
-		printf("\nChild process: Child ID = %d , Parent ID = %d",getpid(),getppid());
-		write(fd[1],arr1,n);
+		printf("\nFor child process ,Value of pr is : %d", pr);
+		printf("\nChild process: Child ID = %d, Parent ID = %d", getpid(), getppid());
+		write(fd[1], arr1, n);
 	}
 	else
 	{
-		printf("\nFor parent process, Value of pr is : %d",pr);
-		printf("\nParent process: Process ID = %d ",getpid());
-		read(fd[0],arr2,100);
-		printf("\nString is : %s",arr2);	
+		printf("\nFor parent process, Value of pr is : %d", pr);
+		printf("\nParent process: Process ID = %d ", getpid());
+		read(fd[0], arr2, 100);
+		printf("\nString is : %s", arr2);
 	}
 
-/*	printf("\nFile dscp :  %d ",val);
+	/*	printf("\nFile dscp :  %d ",val);
 	printf("\nFile read dscp : %d ",fd[0]);
 	printf("\nFile write dscp : %d",fd[1]);	
 	printf("\nProcess status : %d",pr);
